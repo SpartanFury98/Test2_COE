@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.learning">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,15 +17,10 @@
         android:theme="@style/Theme.Learning"
         android:usesCleartextTraffic="true">
         <activity android:name=".MyProfile"></activity>
-        <activity
-            android:name=".MainMenu"
-            android:label="@string/title_activity_main_menu"
-            android:theme="@style/Theme.Learning.NoActionBar" />
-        <activity android:name=".EditUserInfo" />
 
         <uses-library
             android:name="com.google.android.wearable"
-            android:required="true" />
+            android:required="false" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -34,15 +29,7 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity
-            android:name=".Game"
-            android:label="@string/title_activity_game">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".WebPageForTAC"
             android:label="TERMS AND CONDITIONS"
