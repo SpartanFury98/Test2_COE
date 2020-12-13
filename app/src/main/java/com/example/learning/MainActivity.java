@@ -11,11 +11,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     Button login;
     Button signup;
+    Button signin;
     ProgressBar circularBar;
+    DatabaseReference reff;
+    Users user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         login=findViewById(R.id.login);
         signup=findViewById(R.id.signUp);
         circularBar=findViewById(R.id.loadingCircle);
+        reff = FirebaseDatabase.getInstance().getReference().child("Users");
     }
     public void signIn(View view) {
         TextView user = findViewById(R.id.userName);
@@ -34,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             login.setVisibility(view.GONE);
             signup.setVisibility(view.GONE);
             circularBar.setVisibility(view.VISIBLE);
+            signin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reff=FirebaseDatabase.getInstance().getReference().child("Users");
+                }
+            });
+
+
         }
 
     }

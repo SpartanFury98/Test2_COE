@@ -1,5 +1,6 @@
 package com.example.learning;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,8 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class CreateAccount extends AppCompatActivity {
     TextView hyperLink;
@@ -27,7 +31,7 @@ public class CreateAccount extends AppCompatActivity {
     EditText password;
     EditText verifyPassword;
     EditText email;
-
+    long maxid=0;
     CheckBox termsAndCond;
     Button createAccount;
     DatabaseReference reff;
@@ -45,6 +49,18 @@ public class CreateAccount extends AppCompatActivity {
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
         reff = FirebaseDatabase.getInstance().getReference().child("Users");
+//        reff.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists())
+//                    maxid=(snapshot.getChildrenCount());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
         user = new Users();
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +71,9 @@ public class CreateAccount extends AppCompatActivity {
                 user.setPassword(password.getText().toString());
 
                 reff.push().setValue(user);
-                Toast.makeText(CreateAccount.this, "Data is inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateAccount.this, "Your Account has been is inserted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CreateAccount.this, Game.class);
+                startActivity(intent);
             }
         });
 
