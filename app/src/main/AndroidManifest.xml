@@ -16,10 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Learning"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MyProfile"></activity>
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/title_activity_main_menu"
+            android:theme="@style/Theme.Learning.NoActionBar" />
+        <activity android:name=".EditUserInfo" />
+
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
-
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

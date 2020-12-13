@@ -72,8 +72,8 @@ public class CreateAccount extends AppCompatActivity {
 
                 reff.push().setValue(user);
                 Toast.makeText(CreateAccount.this, "Your Account has been is inserted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(CreateAccount.this, Game.class);
-                startActivity(intent);
+//                Intent intent = new Intent(CreateAccount.this, Game.class);
+//                startActivity(intent);
             }
         });
 
