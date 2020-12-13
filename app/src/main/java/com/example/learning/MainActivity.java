@@ -7,6 +7,7 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     if(!email.isEmpty()){
                         Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
                          Users Login = snapshot.child(email).getValue(Users.class);
+
                         if(Login.getPassword().equals(password)){
                         Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(MainActivity.this, CreateAccount.class);

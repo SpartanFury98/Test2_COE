@@ -5,6 +5,7 @@ public class Users {
     private String LastName;
     private String Email;
     private String Password;
+public Users(){}
 
     public Users(String name, String lastName, String email, String password) {
         Name = name;
