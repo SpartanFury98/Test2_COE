@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccount extends AppCompatActivity {
     TextView hyperLink;
@@ -23,8 +27,11 @@ public class CreateAccount extends AppCompatActivity {
     EditText password;
     EditText verifyPassword;
     EditText email;
+
     CheckBox termsAndCond;
     Button createAccount;
+    DatabaseReference reff;
+    Users user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,20 @@ public class CreateAccount extends AppCompatActivity {
         email=findViewById(R.id.email);
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
+        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        user = new Users();
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.setName(name.getText().toString());
+                user.setLastName(familyName.getText().toString());
+                user.setEmail(email.getText().toString());
+                user.setPassword(password.getText().toString());
+
+                reff.push().setValue(user);
+                Toast.makeText(CreateAccount.this, "Data is inserted", Toast.LENGTH_LONG).show();
+            }
+        });
 
         // make the back button work
         Toolbar signUpToolBar = findViewById(R.id.signUpToolBar);
@@ -77,6 +98,7 @@ public class CreateAccount extends AppCompatActivity {
         email=findViewById(R.id.email);
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
+
         if(name.getText().toString().equals("") || familyName.getText().toString().equals("") || password.getText().toString().equals("") || verifyPassword.getText().toString().equals("") || email.getText().toString().equals("") || !termsAndCond.isChecked() )
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -119,6 +141,10 @@ public class CreateAccount extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+
         }
+
+
     }
+
 }
