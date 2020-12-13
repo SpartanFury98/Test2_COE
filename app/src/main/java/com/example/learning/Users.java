@@ -6,6 +6,13 @@ public class Users {
     private String Email;
     private String Password;
 
+    public Users(String name, String lastName, String email, String password) {
+        Name = name;
+        LastName = lastName;
+        Email = email;
+        Password = password;
+    }
+
     public String getName() {
         return Name;
     }
@@ -38,7 +45,7 @@ public class Users {
         Password = password;
     }
 
-    public Users(){}
+
 
 
 }

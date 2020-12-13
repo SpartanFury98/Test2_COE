@@ -3,6 +3,7 @@ package com.example.learning;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.learning.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button login;
     Button signup;
-    Button signin;
+
     ProgressBar circularBar;
     DatabaseReference reff;
+    DatabaseReference users1;
     FirebaseDatabase database;
-    Users user;
+    Users Login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,44 +39,52 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         login=findViewById(R.id.login);
         signup=findViewById(R.id.signUp);
-        circularBar=findViewById(R.id.loadingCircle);
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
-    }
-    public void signIn(View view) {
-        TextView user = findViewById(R.id.userName);
         EditText pass = findViewById(R.id.password);
-        if (user.getText().toString().equals("") || pass.getText().toString().equals("")) // do checks here for database login stuff
-            Toast.makeText(MainActivity.this, "Credential Missing", Toast.LENGTH_LONG).show();
-        else {
-            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
-            login.setVisibility(view.GONE);
-            signup.setVisibility(view.GONE);
-            circularBar.setVisibility(view.VISIBLE);
-            signin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    reff=FirebaseDatabase.getInstance().getReference().child("Users");
-                    SignInAuth(user.getText().toString(),
-                    pass.getText().toString());
-                }
-            });
+        EditText email = findViewById(R.id.userName);
+
+        circularBar=findViewById(R.id.loadingCircle);
+        users1 = FirebaseDatabase.getInstance().getReference("Users");
 
 
-        }
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                //TextView user = findViewById(R.id.userName);
+
+                Toast.makeText(MainActivity.this,"Test" ,Toast.LENGTH_LONG).show();
+                SignInAuth(email.getText().toString(), pass.getText().toString());
+
+            }
+        });
     }
-    public void SignInAuth(final String Email,  final String Pass){
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+
+//        if (user.getText().toString().equals("") || pass.getText().toString().equals("")) // do checks here for database login stuff
+//            Toast.makeText(MainActivity.this, "Credential Missing", Toast.LENGTH_LONG).show();
+//        else {
+//            //Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
+////            login.setVisibility(view.GONE);
+////            signup.setVisibility(view.GONE);
+////            circularBar.setVisibility(view.VISIBLE);
+
+   // }
+    public void SignInAuth( String email,   String password){
+        users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(Email).exists()){
-                    if(!Email.isEmpty()){
-                        Users Login = snapshot.child(Email).getValue(Users.class);
-                        if(Login.getPassword().equals(Pass)){
-                        Toast.makeText(MainActivity.this, "Sucesss", Toast.LENGTH_LONG).show();
+                if(snapshot.child(email).exists()){
+                    Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
+                    if(!email.isEmpty()){
+                        Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
+                         Users Login = snapshot.child(email).getValue(Users.class);
+                        if(Login.getPassword().equals(password)){
+                        Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                            startActivity(intent);
                         }
                         else
-                        {Toast.makeText(MainActivity.this, "Password is Wrong", Toast.LENGTH_LONG).show();
+                        {
+                            Toast.makeText(MainActivity.this, "Password is Wrong", Toast.LENGTH_LONG).show();
                         }
                     }
                    else  {

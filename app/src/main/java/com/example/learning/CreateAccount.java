@@ -48,7 +48,8 @@ public class CreateAccount extends AppCompatActivity {
         email=findViewById(R.id.email);
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        //reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        reff = FirebaseDatabase.getInstance().getReference("Users");
 //        reff.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,17 +62,33 @@ public class CreateAccount extends AppCompatActivity {
 //
 //            }
 //        });
-        user = new Users();
+
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setName(name.getText().toString());
-                user.setLastName(familyName.getText().toString());
-                user.setEmail(email.getText().toString());
-                user.setPassword(password.getText().toString());
+                user = new Users( name.getText().toString(),
+              familyName.getText().toString(),
+              email.getText().toString(),
+                password.getText().toString());
+                
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child(user.getEmail()).exists()){
+                            Toast.makeText(CreateAccount.this, "This Email is Already Used", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            reff.child(user.getEmail()).setValue(user);
+                            Toast.makeText(CreateAccount.this, "Sucessfful Creation", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                reff.push().setValue(user);
-                Toast.makeText(CreateAccount.this, "Your Account has been is inserted", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 //                Intent intent = new Intent(CreateAccount.this, Game.class);
 //                startActivity(intent);
             }

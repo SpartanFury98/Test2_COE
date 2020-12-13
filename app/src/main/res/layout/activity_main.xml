@@ -19,18 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.129" />
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="191dp"
-        android:layout_height="48dp"
-        android:onClick="signIn"
-        android:text="LogIn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.129" />
-
     <EditText
         android:id="@+id/userName"
         android:layout_width="wrap_content"
@@ -62,17 +50,15 @@
 
     <Button
         android:id="@+id/signUp"
-        android:layout_width="194dp"
-        android:layout_height="51dp"
+        android:layout_width="208dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="132dp"
+        android:onClick="signUp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.099"
-        android:onClick="signUp"
-        />
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/loadingCircle"
@@ -87,5 +73,15 @@
         app:layout_constraintVertical_bias="0.519"
         android:visibility="gone"
         />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="196dp"
+        android:layout_height="96dp"
+        android:text="Sign In"
+        app:layout_constraintBottom_toTopOf="@+id/signUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
