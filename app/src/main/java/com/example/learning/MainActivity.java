@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.os.UserHandle;
 import android.util.Log;
 import android.view.View;
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //TextView user = findViewById(R.id.userName);
 
-                Toast.makeText(MainActivity.this,"Test" ,Toast.LENGTH_LONG).show();
-                SignInAuth(email.getText().toString(), pass.getText().toString());
+                //Toast.makeText(MainActivity.this,"Test" ,Toast.LENGTH_LONG).show();
+                SignInAuth(email.getText().toString(), pass.getText().toString(),v);
 
             }
         });
@@ -69,30 +70,42 @@ public class MainActivity extends AppCompatActivity {
 ////            circularBar.setVisibility(view.VISIBLE);
 
    // }
-    public void SignInAuth( String email,   String password){
+    public void SignInAuth( String email,   String password, View view){
         users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(email).exists()){
-                    Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
                     if(!email.isEmpty()){
-                        Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
                          Users Login = snapshot.child(email).getValue(Users.class);
 
                         if(Login.getPassword().equals(password)){
-                        Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, CreateAccount.class);
-                            startActivity(intent);
+                        Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_LONG).show();
+                            login.setVisibility(view.GONE);
+                            signup.setVisibility(view.GONE);
+                            circularBar.setVisibility(view.VISIBLE);
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    SystemClock.sleep(1000);
+                                    Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                                    startActivity(intent);
+                                        }
+                                    });
+                                thread.start();
+
+
+
                         }
                         else
                         {
                             Toast.makeText(MainActivity.this, "Password is Wrong", Toast.LENGTH_LONG).show();
                         }
                     }
-                   else  {
-                        Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
-                    }
-
+                }
+                else  {
+                    Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -50,15 +50,16 @@
 
     <Button
         android:id="@+id/signUp"
-        android:layout_width="208dp"
-        android:layout_height="78dp"
-        android:layout_marginBottom="132dp"
+        android:layout_width="178dp"
+        android:layout_height="57dp"
         android:onClick="signUp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72" />
 
     <ProgressBar
         android:id="@+id/loadingCircle"
@@ -76,12 +77,14 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_width="196dp"
-        android:layout_height="96dp"
+        android:layout_width="178dp"
+        android:layout_height="52dp"
         android:text="Sign In"
-        app:layout_constraintBottom_toTopOf="@+id/signUp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.295" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

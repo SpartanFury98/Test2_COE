@@ -63,7 +63,7 @@ public class CreateAccount extends AppCompatActivity {
 //            }
 //        });
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
+        /*createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user = new Users( name.getText().toString(),
@@ -92,7 +92,7 @@ public class CreateAccount extends AppCompatActivity {
 //                Intent intent = new Intent(CreateAccount.this, Game.class);
 //                startActivity(intent);
             }
-        });
+        });*/
 
         // make the back button work
         Toolbar signUpToolBar = findViewById(R.id.signUpToolBar);
@@ -176,6 +176,32 @@ public class CreateAccount extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+
+        }
+        else
+        {
+            user = new Users( name.getText().toString(),
+                    familyName.getText().toString(),
+                    email.getText().toString(),
+                    password.getText().toString());
+
+            reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(user.getEmail()).exists()){
+                        Toast.makeText(CreateAccount.this, "This Email is Already Used", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        reff.child(user.getEmail()).setValue(user);
+                        Toast.makeText(CreateAccount.this, "Successfful Creation", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
         }
 
