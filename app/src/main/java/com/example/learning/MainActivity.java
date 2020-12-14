@@ -27,7 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static  String email_user;
+    public static String password_user;
     Button login;
     Button signup;
 
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                          Users Login = snapshot.child(email).getValue(Users.class);
 
                         if(Login.getPassword().equals(password)){
+                            email_user = Login.getUsername();
+                            password_user= Login.getPassword();
                         Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_LONG).show();
                             login.setVisibility(view.GONE);
                             signup.setVisibility(view.GONE);
@@ -91,16 +94,15 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
+                                    SharedPreferences sp2 = getSharedPreferences("USERPASS" , Context.MODE_PRIVATE);
                                     sp.edit().putString("username",email).commit();
+                                    sp2.edit().putString("passwo",password).commit();
                                     SystemClock.sleep(1000);
                                     Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                     startActivity(intent);
                                         }
                                     });
                                 thread.start();
-
-
-
                         }
                         else
                         {

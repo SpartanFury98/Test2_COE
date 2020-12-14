@@ -3,7 +3,9 @@ package com.example.learning;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -27,6 +29,7 @@ Users Login;
 DatabaseReference users1;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +40,14 @@ DatabaseReference users1;
         btnDelete = findViewById(R.id.Delete);
         btnUpdate = findViewById(R.id.Update);
         users1 = FirebaseDatabase.getInstance().getReference("Users");
+        SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
+        SharedPreferences sp2 = getSharedPreferences("USERPASS" , Context.MODE_PRIVATE);
+        String username  = sp.getString("username","UNKNOWN");
+        String passwo  = sp2.getString("passwo","UNKNOWN");
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateProfile(name.getText().toString(), lastname.getText().toString(),MainActivity.email_user, emailedit.getText().toString(),MainActivity.password_user,v);
+                UpdateProfile(name.getText().toString(), lastname.getText().toString(),username, emailedit.getText().toString(),passwo,v);
             }
         });
 

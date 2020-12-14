@@ -27,7 +27,7 @@ public class MainMenu extends AppCompatActivity {
         logouttxt=findViewById(R.id.logout);
         SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
         String username  = sp.getString("username","UNKNOWN");
-        welcometxt.setText("Welcome, "+username);
+        welcometxt.setText("Welcome, " +username);
     }
     public void launchGame(View view)
         {
@@ -36,15 +36,19 @@ public class MainMenu extends AppCompatActivity {
         public void launchDonation(View view)
         {
             // launch donation
+            Intent intent = new Intent(MainMenu.this,Donations.class);
+            startActivity(intent);
         }
         public void launchProfile(View view)
         {
             // launch my profile
+            Intent intent = new Intent(MainMenu.this,MyProfile.class);
+            startActivity(intent);
         }
         public void logout(View view)
         {
             // logout back to main page
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(MainMenu.this,MainActivity.class);
             startActivity(intent);
         }
 }

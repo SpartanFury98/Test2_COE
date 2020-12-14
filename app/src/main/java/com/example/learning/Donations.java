@@ -8,8 +8,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Donations extends AppCompatActivity {
+
     EditText Amount;
     Date currentTime = Calendar.getInstance().getTime();
     Button btninc;
@@ -46,13 +49,15 @@ public class Donations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donations);
-       toolbar = findViewById(R.id.toolbarmenu);
+
         Amount = findViewById(R.id.AmountDisplay);
         btninc = findViewById(R.id.increase);
         btndec = findViewById(R.id.decrease);
         btnDonate = findViewById(R.id.Donate);
         users1 = FirebaseDatabase.getInstance().getReference("Users");
-        btnViewold = findViewById(R.id.previousdon);
+        SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
+        String username = sp.getString("username","UNKNOWN");
+        //btnViewold = findViewById(R.id.previousdon);
         Amount.setText("0");
 
         btninc.setOnClickListener(new View.OnClickListener() {
@@ -93,24 +98,24 @@ public class Donations extends AppCompatActivity {
                 users1.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child(MainActivity.email_user).exists()){
-//                            if(Integer.parseInt(Amount.getText().toString())!=0){
-                            Toast.makeText(Donations.this, "test Donation", Toast.LENGTH_SHORT).show();
-                                users1.child(MainActivity.email_user).child("Donating").child(""+currentTime).setValue(Amount.getText().toString());
-                                Toast.makeText(Donations.this, "Successfful Donation", Toast.LENGTH_SHORT).show();
-//                            }
-//                            else  {
-//                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Donations.this);
-//                                alertDialog.setTitle("Error");
-//                                alertDialog.setMessage("Cannot Donate  0!");
-//                                alertDialog.setCancelable(false);
-//                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//
-//                                    }
-//                                });
-//                                alertDialog.show();}
+                        if(snapshot.child(username).exists()){
+                            if(Integer.parseInt(Amount.getText().toString())!=0){
+
+                                users1.child(username).child("Donating").child(""+currentTime).setValue(Amount.getText().toString());
+                                Toast.makeText(Donations.this, "Successful Donation", Toast.LENGTH_SHORT).show();
+                            }
+                            else  {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Donations.this);
+                                alertDialog.setTitle("Error");
+                                alertDialog.setMessage("Cannot Donate  0!");
+                                alertDialog.setCancelable(false);
+                                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alertDialog.show();}
 
                         }
 
@@ -124,18 +129,18 @@ public class Donations extends AppCompatActivity {
             }
         });
 
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+//        setSupportActionBar(toolbar);
+//        ActionBar ab = getSupportActionBar();
+//        ab.setDisplayHomeAsUpEnabled(true);
 
-
-        btnViewold.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Donations.this,ViewMyDonations.class);
-                startActivity(intent);
-            }
-        });
+//
+//        btnViewold.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Donations.this,ViewMyDonations.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }

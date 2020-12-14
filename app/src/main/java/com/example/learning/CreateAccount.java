@@ -31,6 +31,7 @@ public class CreateAccount extends AppCompatActivity {
     EditText password;
     EditText verifyPassword;
     EditText email;
+    EditText usern;
     long maxid=0;
     CheckBox termsAndCond;
     Button createAccount;
@@ -46,6 +47,7 @@ public class CreateAccount extends AppCompatActivity {
         password=findViewById(R.id.password);
         verifyPassword=findViewById(R.id.verifyPassword);
         email=findViewById(R.id.email);
+        usern= findViewById(R.id.username);
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
         //reff = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -131,6 +133,7 @@ public class CreateAccount extends AppCompatActivity {
         password=findViewById(R.id.password);
         verifyPassword=findViewById(R.id.verifyPassword);
         email=findViewById(R.id.email);
+        usern= findViewById(R.id.username);
         termsAndCond=findViewById(R.id.termsCheckBox);
         createAccount=findViewById(R.id.createAcc);
 
@@ -183,16 +186,16 @@ public class CreateAccount extends AppCompatActivity {
             user = new Users( name.getText().toString(),
                     familyName.getText().toString(),
                     email.getText().toString(),
-                    password.getText().toString());
+                    password.getText().toString(), usern.getText().toString());
 
             reff.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.child(user.getEmail()).exists()){
-                        Toast.makeText(CreateAccount.this, "This Email is Already Used", Toast.LENGTH_SHORT).show();
+                    if(snapshot.child(user.getUsername()).exists()){
+                        Toast.makeText(CreateAccount.this, "This UserName is Already Used", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        reff.child(user.getEmail()).setValue(user);
+                        reff.child(user.getUsername()).setValue(user);
                         Toast.makeText(CreateAccount.this, "Successful Creation", Toast.LENGTH_SHORT).show();
                     }
                 }
