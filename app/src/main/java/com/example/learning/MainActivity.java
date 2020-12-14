@@ -95,7 +95,7 @@ public static  String password_user;
                                 @Override
                                 public void run() {
                                     SystemClock.sleep(1000);
-                                    Intent intent = new Intent(MainActivity.this, Donations.class);
+                                    Intent intent = new Intent(MainActivity.this, MyProfile.class);
                                     startActivity(intent);
                                         }
                  });

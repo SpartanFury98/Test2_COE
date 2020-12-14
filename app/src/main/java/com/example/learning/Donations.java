@@ -124,7 +124,9 @@ public class Donations extends AppCompatActivity {
             }
         });
 
-
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
 
         btnViewold.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +136,7 @@ public class Donations extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        setSupportActionBar(toolbar);
-//        ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+
 
     }
     public void Donation( String amount, String email,  String password, View view){

@@ -63,9 +63,9 @@ DatabaseReference users1;
 //                                    emailedit.getText().toString(),
 //                                    MainActivity.password_user,email);
 //                            //users1.child(email).setValue(Update);
-                            users1.child(username).child("email").setValue(email);
-                            users1.child(username).child("name").setValue(name);
-                            users1.child(username).child("lastName").setValue(lastname);
+                            users1.child(username).child("email").setValue( email);
+                            users1.child(username).child("name").setValue( name);
+                            users1.child(username).child("lastName").setValue( lastname);
                             Toast.makeText(MyProfile.this, "Successfful Update", Toast.LENGTH_SHORT).show();
 
 

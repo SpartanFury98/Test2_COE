@@ -2,9 +2,7 @@ package com.example.learning;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,33 +21,17 @@ import java.util.List;
 public class ViewMyDonations extends AppCompatActivity {
     ScrollView listView;
     DatabaseReference users1;
-    TextView txt1;
-EditText multiline;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_donations);
         listView = findViewById(R.id.scrolldata);
         users1 = FirebaseDatabase.getInstance().getReference("Users");
-        txt1 = findViewById(R.id.textView8);
-        multiline = findViewById(R.id.editTextTextMultiLine2);
         users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
 
-                    if (snapshot.child(MainActivity.email_user).child("Donating").exists()) {
-
-                        String milti;
-                        for(DataSnapshot datas: snapshot.child(MainActivity.email_user).child("Donating").getChildren()){
-
-                            String value = datas.getValue(String.class);
-                            milti=datas.getKey()+" ---"+ value+"\n";
-                            listView.
-                            //txt1.setText(datas.getKey()+" ---"+ value);
-
-                        }
-
-
+                    if (snapshot.child(MainActivity.email_user).child("Donate").exists()) {
 
 
                     }
