@@ -23,8 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
 
+
+public class MainActivity extends AppCompatActivity {
+public static String email_user;
+public static  String password_user;
 
     Button login;
     Button signup;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     Users Login;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         login=findViewById(R.id.login);
         signup=findViewById(R.id.signUp);
         EditText pass = findViewById(R.id.password);
-        EditText email = findViewById(R.id.userName);
+         EditText username= findViewById(R.id.userName);
 
         circularBar=findViewById(R.id.loadingCircle);
         users1 = FirebaseDatabase.getInstance().getReference("Users");
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 //TextView user = findViewById(R.id.userName);
 
                 //Toast.makeText(MainActivity.this,"Test" ,Toast.LENGTH_LONG).show();
-                SignInAuth(email.getText().toString(), pass.getText().toString(),v);
+                SignInAuth(username.getText().toString(), pass.getText().toString(),v);
 
             }
         });
@@ -70,18 +74,20 @@ public class MainActivity extends AppCompatActivity {
 ////            circularBar.setVisibility(view.VISIBLE);
 
    // }
-    public void SignInAuth( String email,   String password, View view){
+    private void SignInAuth( String username,   String password, View view){
         users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(email).exists()){
+                if(snapshot.child(username).exists()){
                     //Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
-                    if(!email.isEmpty()){
+                    if(!username.isEmpty()){
                         //Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
-                         Users Login = snapshot.child(email).getValue(Users.class);
+                         Users Login = snapshot.child(username).getValue(Users.class);
 
-                        if(Login.getPassword().equals(password)){
-                        Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_LONG).show();
+                        if(Login.getPassword().equals(password)) {
+                            email_user = Login.getUsername();
+                            password_user = Login.getPassword();
+                            Toast.makeText(MainActivity.this, email_user, Toast.LENGTH_LONG).show();
                             login.setVisibility(view.GONE);
                             signup.setVisibility(view.GONE);
                             circularBar.setVisibility(view.VISIBLE);
@@ -89,23 +95,25 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     SystemClock.sleep(1000);
-                                    Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                                    Intent intent = new Intent(MainActivity.this, Donations.class);
                                     startActivity(intent);
                                         }
-                                    });
+                 });
                                 thread.start();
-
-
-
                         }
                         else
                         {
                             Toast.makeText(MainActivity.this, "Password is Wrong", Toast.LENGTH_LONG).show();
                         }
+
+                //}
+
+            }
+                    else  {
+                        Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
                     }
-                }
-                else  {
-                    Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
+
+
                 }
             }
 
@@ -120,4 +128,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
     }
-}
+    }

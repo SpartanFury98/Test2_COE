@@ -10,11 +10,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#00BCD4"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MyProfile"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="68dp">
 
         <TextView
             android:id="@+id/name2"
@@ -98,10 +98,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.005"
+            app:layout_constraintHorizontal_bias="0.019"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Lastname"
-            app:layout_constraintVertical_bias="0.109" />
+            app:layout_constraintVertical_bias="0.156" />
 
         <EditText
             android:id="@+id/txtEmail"
@@ -111,8 +111,12 @@
             android:inputType="textPersonName"
             android:text="Email"
             android:textColor="#FFFFFF"
-            tools:layout_editor_absoluteX="158dp"
-            tools:layout_editor_absoluteY="333dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.756"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtlastname"
+            app:layout_constraintVertical_bias="0.099" />
 
         <Button
             android:id="@+id/Update"

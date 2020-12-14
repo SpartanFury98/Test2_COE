@@ -5,13 +5,25 @@ public class Users {
     private String LastName;
     private String Email;
     private String Password;
+    private String Username;
 public Users(){}
 
-    public Users(String name, String lastName, String email, String password) {
+    public Users(String name, String lastName, String email, String password, String username) {
         Name = name;
         LastName = lastName;
         Email = email;
         Password = password;
+        Username= username;
+
+
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
     }
 
     public String getName() {
