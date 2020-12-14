@@ -87,7 +87,7 @@ public static  String password_user;
                         if(Login.getPassword().equals(password)) {
                             email_user = Login.getUsername();
                             password_user = Login.getPassword();
-                            Toast.makeText(MainActivity.this, email_user, Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Logged In!", Toast.LENGTH_LONG).show();
                             login.setVisibility(view.GONE);
                             signup.setVisibility(view.GONE);
                             circularBar.setVisibility(view.VISIBLE);
@@ -95,7 +95,7 @@ public static  String password_user;
                                 @Override
                                 public void run() {
                                     SystemClock.sleep(1000);
-                                    Intent intent = new Intent(MainActivity.this, Donations.class);
+                                    Intent intent = new Intent(MainActivity.this, MyProfile.class);
                                     startActivity(intent);
                                         }
                  });

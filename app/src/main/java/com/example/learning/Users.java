@@ -6,6 +6,7 @@ public class Users {
     private String Email;
     private String Password;
     private String Username;
+
 public Users(){}
 
     public Users(String name, String lastName, String email, String password, String username) {

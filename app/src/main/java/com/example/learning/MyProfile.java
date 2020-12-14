@@ -40,29 +40,32 @@ DatabaseReference users1;
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateProfile(name.getText().toString(), lastname.getText().toString(),MainActivity.email_user,MainActivity.password_user,v);
+                UpdateProfile(name.getText().toString(), lastname.getText().toString(),MainActivity.email_user, emailedit.getText().toString(),MainActivity.password_user,v);
             }
         });
 
 
     }
-    public void UpdateProfile( String name,  String lastname, String email,  String password, View view){
+    public void UpdateProfile( String name,  String lastname, String username,  String email,String password, View view){
         users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(email).exists()){
+                if(snapshot.child(username).exists()){
                     //Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
-                    if(!email.isEmpty()){
+                    if(!username.isEmpty()){
                         //Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
-                        Users Update = snapshot.child(email).getValue(Users.class);
+                        Users Update = snapshot.child(username).getValue(Users.class);
 
                         if(Update.getPassword().equals(password)){
 //                            Toast.makeText(MyProfile.this, "Success In", Toast.LENGTH_LONG).show();
-                            Update = new Users( name,
-                                    lastname,
-                                    emailedit.getText().toString(),
-                                    MainActivity.password_user,email);
-                            users1.child(email).setValue(Update);
+//                            Update = new Users( name,
+//                                    lastname,
+//                                    emailedit.getText().toString(),
+//                                    MainActivity.password_user,email);
+//                            //users1.child(email).setValue(Update);
+                            users1.child(username).child("email").setValue( email);
+                            users1.child(username).child("name").setValue( name);
+                            users1.child(username).child("lastName").setValue( lastname);
                             Toast.makeText(MyProfile.this, "Successfful Update", Toast.LENGTH_SHORT).show();
 
 
