@@ -2,7 +2,9 @@ package com.example.learning;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -36,6 +38,7 @@ public class Donations extends AppCompatActivity {
     Button btnDonate;
     Button btnViewold;
     Donate dony;
+    Toolbar toolbar;
     Users Login;
     DatabaseReference users1;
 
@@ -43,7 +46,7 @@ public class Donations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donations);
-
+       toolbar = findViewById(R.id.toolbarmenu);
         Amount = findViewById(R.id.AmountDisplay);
         btninc = findViewById(R.id.increase);
         btndec = findViewById(R.id.decrease);
@@ -120,6 +123,11 @@ public class Donations extends AppCompatActivity {
                 });
             }
         });
+
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
 
         btnViewold.setOnClickListener(new View.OnClickListener() {
             @Override
