@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserHandle;
@@ -23,11 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-
 public class MainActivity extends AppCompatActivity {
-public static String email_user;
-public static  String password_user;
+
 
     Button login;
     Button signup;
@@ -38,7 +37,6 @@ public static  String password_user;
     FirebaseDatabase database;
     Users Login;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +44,7 @@ public static  String password_user;
         login=findViewById(R.id.login);
         signup=findViewById(R.id.signUp);
         EditText pass = findViewById(R.id.password);
-         EditText username= findViewById(R.id.userName);
+        EditText email = findViewById(R.id.userName);
 
         circularBar=findViewById(R.id.loadingCircle);
         users1 = FirebaseDatabase.getInstance().getReference("Users");
@@ -59,7 +57,7 @@ public static  String password_user;
                 //TextView user = findViewById(R.id.userName);
 
                 //Toast.makeText(MainActivity.this,"Test" ,Toast.LENGTH_LONG).show();
-                SignInAuth(username.getText().toString(), pass.getText().toString(),v);
+                SignInAuth(email.getText().toString(), pass.getText().toString(),v);
 
             }
         });
@@ -74,46 +72,44 @@ public static  String password_user;
 ////            circularBar.setVisibility(view.VISIBLE);
 
    // }
-    private void SignInAuth( String username,   String password, View view){
+    public void SignInAuth( String email,   String password, View view){
         users1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(username).exists()){
+                if(snapshot.child(email).exists()){
                     //Toast.makeText(MainActivity.this, "Sucesss Log In", Toast.LENGTH_LONG).show();
-                    if(!username.isEmpty()){
+                    if(!email.isEmpty()){
                         //Toast.makeText(MainActivity.this, "email is not empty", Toast.LENGTH_LONG).show();
-                         Users Login = snapshot.child(username).getValue(Users.class);
+                         Users Login = snapshot.child(email).getValue(Users.class);
 
-                        if(Login.getPassword().equals(password)) {
-                            email_user = Login.getUsername();
-                            password_user = Login.getPassword();
-                            Toast.makeText(MainActivity.this, "Logged In!", Toast.LENGTH_LONG).show();
+                        if(Login.getPassword().equals(password)){
+                        Toast.makeText(MainActivity.this, "Success Log In", Toast.LENGTH_LONG).show();
                             login.setVisibility(view.GONE);
                             signup.setVisibility(view.GONE);
                             circularBar.setVisibility(view.VISIBLE);
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
+                                    sp.edit().putString("username",email).commit();
                                     SystemClock.sleep(1000);
-                                    Intent intent = new Intent(MainActivity.this, MyProfile.class);
+                                    Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                     startActivity(intent);
                                         }
-                 });
+                                    });
                                 thread.start();
+
+
+
                         }
                         else
                         {
                             Toast.makeText(MainActivity.this, "Password is Wrong", Toast.LENGTH_LONG).show();
                         }
-
-                //}
-
-            }
-                    else  {
-                        Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
                     }
-
-
+                }
+                else  {
+                    Toast.makeText(MainActivity.this, "Username is Not Registered", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -128,4 +124,4 @@ public static  String password_user;
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
     }
-    }
+}
