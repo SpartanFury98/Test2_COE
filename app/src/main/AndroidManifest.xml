@@ -4,6 +4,7 @@
     package="com.example.learning">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Learning"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".MainMenu" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".MyProfile" />
 
         <uses-library
             android:name="com.google.android.wearable"
@@ -28,7 +30,6 @@
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
-
 
         <activity
             android:name=".WebPageForTAC"

@@ -193,7 +193,7 @@ public class CreateAccount extends AppCompatActivity {
                     }
                     else {
                         reff.child(user.getEmail()).setValue(user);
-                        Toast.makeText(CreateAccount.this, "Successfful Creation", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Successful Creation", Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.UserHandle;
@@ -88,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    SharedPreferences sp = getSharedPreferences("USERINFO" , Context.MODE_PRIVATE);
+                                    sp.edit().putString("username",email).commit();
                                     SystemClock.sleep(1000);
-                                    Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                                    Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                     startActivity(intent);
                                         }
                                     });
